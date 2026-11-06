@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conveyancing Study Hub: Group N</title>
+<style>
+  :root{--navy:#1F3A5F;--teal:#2A7F8E;--ink:#222;--muted:#666;--line:#E2E2DE;--bg:#FAFAF7;--good:#2E7D4F;--good-l:#E3F1E5;--bad:#B03A3A;--bad-l:#FBEBEB;--c:#1F3A5F;--l:#DCE6F2}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;font-size:17px;line-height:1.5}
+  h1,h2,h3,.ui,button{font-family:Candara,"Segoe UI",Calibri,system-ui,sans-serif}
+  .wrap{max-width:720px;margin:0 auto;padding:16px 16px 48px}
+  header{background:var(--navy);color:#fff;border-radius:14px;padding:20px;margin-bottom:18px}
+  header .kick{font-size:12px;letter-spacing:.08em;color:#A9C4E0;font-weight:700;text-transform:uppercase}
+  header h1{margin:4px 0;font-size:28px}
+  header p{margin:0;color:#D6E2EF;font-style:italic;font-size:15px}
+  .rev{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;border-radius:14px;padding:16px 18px;margin-bottom:14px;background:#1F3A5F;color:#fff;font-size:inherit}
+  .rev.locked{background:#E9E9E5;color:#8A8A85;cursor:default}
+  .rev .big2{font-size:20px;font-weight:700}
+  .rev .sub{font-size:13px;opacity:.85}
+  .rev .ico{font-size:22px}
+  .who{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:14px}
+  .linkb{border:0;background:none;color:var(--navy);text-decoration:underline;cursor:pointer;font-size:14px;padding:0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+  .ch{position:relative;text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px 16px 14px;cursor:pointer;border-top:6px solid var(--c);min-height:120px;font-size:inherit;color:var(--ink)}
+  .ch .num{font-size:13px;font-weight:700;color:var(--c);letter-spacing:.04em;text-transform:uppercase}
+  .ch .t{font-size:19px;font-weight:700;margin:4px 0 8px;color:#222;line-height:1.25}
+  .ch .s{font-size:13px;color:var(--muted)}
+  .ch.locked{cursor:default;background:#F3F3F0;border-top-color:#C9C9C4}
+  .ch.locked .num,.ch.locked .t{color:#9A9A95}
+  .ch.locked .lock{position:absolute;top:14px;right:14px;font-size:16px;color:#9A9A95}
+  .open-tag{display:inline-block;background:var(--l);color:var(--c);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700}
+  .back{border:0;background:none;color:var(--navy);font-weight:700;font-size:15px;cursor:pointer;padding:6px 0;margin-bottom:6px}
+  .chhead{border-radius:14px;padding:16px 18px;margin-bottom:12px;background:var(--l);border-left:8px solid var(--c)}
+  .chhead .num{font-size:13px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.04em}
+  .chhead h2{margin:2px 0 0;font-size:24px}
+  .tabs{display:flex;gap:8px;margin-bottom:14px}
+  .tab{flex:1;border:2px solid var(--c);background:#fff;color:var(--c);border-radius:10px;padding:10px;font-weight:700;font-size:15px;cursor:pointer}
+  .tab[aria-selected="true"]{background:var(--c);color:#fff}
+  .tabs{flex-wrap:wrap}
+  .tab{min-width:calc(50% - 4px)}
+  @media (min-width:560px){.tab{min-width:0}}
+  .ex{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+  .ex .src{font-size:12.5px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.04em}
+  .ex .also{font-size:13px;color:var(--muted);margin:2px 0 10px}
+  .ex .lab{font-size:13px;font-weight:700;color:#444;margin:10px 0 4px}
+  .ex .task{background:var(--l);border-radius:10px;padding:10px 12px;font-size:16px}
+  .ex ul{margin:6px 0 0;padding-left:20px}
+  .ex li{margin-bottom:4px;font-size:15.5px}
+  .ex .errs li{color:#7A2A2A}
+  .ex .noteline{font-style:italic;font-size:14.5px;color:#555;margin-top:8px}
+  .ex textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:10px;padding:10px;font-family:Georgia,serif;font-size:15px;margin-top:4px}
+  .note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:5px solid var(--c)}
+  .note h3{margin:0 0 4px;font-size:17px;color:var(--c)}
+  .note p{margin:0;font-size:16px}
+  .rounds{display:flex;align-items:center;gap:6px;margin:0 0 12px;font-size:13px;color:var(--muted)}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 11px;font-size:13px;cursor:pointer;color:var(--ink)}
+  .chip[aria-pressed="true"]{border-color:var(--c);background:var(--c);color:#fff}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+  .meta{display:flex;justify-content:flex-end;font-size:13px;color:var(--muted);margin-bottom:8px}
+  .bar{height:6px;background:#ECECE8;border-radius:6px;overflow:hidden;margin-bottom:14px}
+  .bar>i{display:block;height:100%;background:var(--c);transition:width .3s}
+  .q{font-size:19px;margin:4px 0 14px}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:12px 14px;font-family:Georgia,serif;font-size:16px;cursor:pointer;color:var(--ink)}
+  .opt:hover:not([disabled]){border-color:var(--c)}
+  .opt.right{border-color:var(--good);background:var(--good-l)}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-l)}
+  .why{margin-top:14px;border-left:5px solid var(--c);background:#F4F7F9;padding:12px 14px;border-radius:0 10px 10px 0;font-size:15.5px}
+  .row{display:flex;gap:8px;margin-top:14px}
+  .btn{flex:1;border:0;background:var(--c);color:#fff;border-radius:10px;padding:12px;font-size:16px;font-weight:700;cursor:pointer}
+  .btn.ghost{background:#fff;color:var(--c);border:2px solid var(--c)}
+  .btn[disabled]{opacity:.4;cursor:default}
+  .flip{perspective:1200px;cursor:pointer}
+  .flip .inner{position:relative;min-height:280px;transition:transform .5s;transform-style:preserve-3d}
+  .flip.on .inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;padding:22px 22px 36px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line);background:#fff;overflow:auto}
+  .face.back{transform:rotateY(180deg);background:#F7FAFB}
+  .hint{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:12px;color:var(--muted)}
+  .score{text-align:center}
+  .big{font-size:56px;font-weight:700;color:var(--c);font-family:Candara,"Segoe UI",system-ui,sans-serif;margin:6px 0}
+  footer{margin-top:22px;font-size:12.5px;color:var(--muted);text-align:center}
+  @media (prefers-reduced-motion: reduce){.flip .inner,.bar>i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kick">Conveyancing and Registration of Title</div>
+    <h1>Study hub</h1>
+    <p>Key points, a quiz, flashcards and exam practice for each examinable chapter. A chapter opens after we've covered it in the seminar. Group N 2026-2027.</p>
+  </header>
+  <main id="app"></main>
+  <footer>Built from the Group N seminar materials and the examiners' review of May 2025. Section numbers are for Jamaica.</footer>
+</div>
+<script>
+// Chapters open to students. To open the next chapter, add its key here and republish.
+const UNLOCKED = ["ch1", "ch3"];
+// The master revision bank is added and this set to true in revision season.
+const REVISION_OPEN = false;
+
+const CHAPTERS = [
+ {k:"ch1", n:1, title:"Estates and Interests in Land", c:"#B5555B", l:"#F6E3E4"},
+ {k:"ch3", n:3, title:"Registered Title", c:"#3E8E8A", l:"#DDEFEE"},
+ {k:"ch4", n:4, title:"Transmission", c:"#6A5BA8", l:"#EAE7F6"},
+ {k:"ch5", n:5, title:"Lost, Destroyed or Stolen Titles", c:"#B8962E", l:"#F7F0D9"},
+ {k:"ch6", n:6, title:"Caveats", c:"#2A7F8E", l:"#E6F2F4"},
+ {k:"ch7", n:7, title:"Sale of Interests in Land", c:"#C47A2C", l:"#F8EAD8"},
+ {k:"ch8", n:8, title:"Mortgages", c:"#1F3A5F", l:"#DCE6F2"},
+ {k:"ch9", n:9, title:"Restrictive Covenants", c:"#3C8D4F", l:"#E3F1E5"}
+];
+
+// Key points, drawn from the Group N handouts
+const NOTES = {
+ ch1: [
+  ["Start every problem with three questions", "What estate does each person hold? Does it give possession now, or later in remainder or reversion? Is it legal or equitable? Nobody but the Crown owns land. A person owns an estate: rights in the land measured by time."],
+  ["The estates", "Fee simple: lasts indefinitely, treated as permanent ownership. Fee tail (\"to A and the heirs of his body\"): passes only to lineal descendants and can't be left by will. Life estate (\"to A for life\"): nothing is left to pass on death. Estate pur autre vie: measured by someone else's life. It also arises when a life tenant transfers her interest. Leasehold: exclusive possession for a fixed and certain term."],
+  ["\"Until\" or \"provided that\"?", "Words of duration (\"until\", \"during\", \"for so long as\") make a determinable estate, which ends automatically. Words of condition (\"provided that\", \"on condition that\", \"but if\") make a conditional estate, which continues until the grantor re-enters. Quote the words in your answer and say what they create."],
+  ["Remainder and reversion", "A reversion is what the grantor keeps. A remainder is what a third person takes after the prior estate. Both are present interests: they can be sold, given or left by will today. If the remainderman dies first, his remainder passes under his will or on intestacy."],
+  ["Legal and equitable", "A legal estate binds the world. An equitable interest binds everyone except a bona fide purchaser of the legal estate for value without notice. He must show four things: legal estate, value, good faith, no notice. Notice can be actual, constructive or imputed through his attorney."],
+  ["How equitable interests arise", "Behind a trust. Where formalities weren't met: Walsh v Lonsdale (agreement for a lease), deposit of title deeds, part performance (Steadman v Steadman). Where equity creates them: restrictive covenants and proprietary estoppel (assurance, reliance, detriment: Inwards v Baker)."],
+  ["The seven questions, in order, with sections", "1. Is there a settlement (s.2(2), s.2(4), s.65)? 2. Who is the tenant for life (s.2(6), s.2(7), s.64)? 3. What can she do (sell and exchange s.3, lease s.8, mortgage only under ss.20 and 21, contract s.37, convey s.23)? 4. Who are the trustees (s.2(9), s.44(1), s.46)? 5. What must she do first (a month's notice by registered post to each of at least two trustees and their attorney, s.53)? 6. On what terms (best price s.6(1), best rent s.10(2), acting as trustee s.59)? 7. Where does the money go (two trustees or into court, income only to her, ss.25, 47 and 24(2))?"],
+  ["Leases by a tenant for life", "Up to 21 years generally, 60 for mining, 99 for building (s.8). By deed, in possession within twelve months, with a covenant for rent and a right of re-entry (s.10). A lease of three years or less may be in writing (s.9). Rent is income and belongs to her (Re Wix). A fine is capital."],
+  ["Overreaching", "On a sale the purchaser takes the fee simple free of the settlement. The interests leave the land and attach to the money in the trustees' hands. The remainderman may never get the land. He gets the fund when the life interest ends (ss.23(2) and 25(5))."],
+  ["Rules a settlor can't draft around", "The powers can't be assigned or released (s.56(1)). A contract not to use them is void (s.56(2)). A term that forbids, discourages or penalises their use is void to that extent (s.57, Re Paget's Settled Estates). Using a power causes no forfeiture (s.58)."],
+  ["If you act for the purchaser", "Pay the trustees and have them join to give a receipt, which is a full discharge (s.48). A purchaser in good faith needn't ask whether notice was given (ss.53(3) and 60). A purchaser who knows the power is being misused isn't protected (Chandler v Bradley) and may decline to complete (Hatten v Russell)."],
+  ["How a settlement is created", "By direct grant (\"to A for life with remainder to B\") with a deed appointing trustees \"for the purposes of the Settled Land Act\". Through a trust instrument. By will, ideally with an appointment clause using those words. By operation of law, when an infant becomes entitled in possession (ss.65 and 66)."],
+  ["Reading a title that shows a settlement", "\"... for the term of her natural life and thereafter to [names] ...\". The first name is the tenant for life. The names after \"thereafter\" hold the remainder. \"Share and share alike\" makes them tenants in common. No words of severance makes them joint tenants. The title won't name the trustees: ask for the will or deed of appointment."],
+  ["Cases to know", "Jacas v Jacas (life tenant's exclusive possession; remaindermen wait). Middlemas v Stevens (powers used in good faith for the settlement). Wheelwright v Walker (best price). Chandler v Bradley and Hatten v Russell (purchasers who know of misuse). Re Paget's (terms cutting down powers are void). Re Wix (rent is income)."],
+  ["Exam checklist", "Classify first. Quote the words of the gift. Run the seven questions with sections. Say where the money goes. Give practical advice: valuation, advertisement, court application for trustees, timing of notice, what goes on the title. Write for the reader the question names: plain words for a lay client, authority for a supervising attorney."]
+ ],
+ ch3: [
+  ["The whole system in one idea", "The State keeps a book, writes in it who owns each piece of land, promises the book is right and pays if it's wrong. Gibbs v Messer: the point is to save a buyer the trouble of going behind the register."],
+  ["Mirror, curtain, insurance", "Mirror: the Register shows everything that matters about ownership and burdens (ss.68 and 70). Curtain: it's the only place you need to look (s.71). Insurance: the assurance fund pays an innocent person who loses out (ss.158 and 161 to 164)."],
+  ["The golden rule", "Signing does nothing. Title passes when the Registrar registers the instrument (ss.59, 63 and 88). Until then the buyer has a contract and a claim to be registered. If two instruments are lodged, the one registered first wins, whatever date it was signed."],
+  ["The Register and the two certificates", "The original is bound in the Register Book at the National Land Agency. The duplicate goes to the registered proprietor (ss.25 and 26). Volume and folio is the title reference that every search, caveat and instrument quotes."],
+  ["Absolute and qualified title", "Absolute (s.26): owner subject only to the burdens written on the certificate. Qualified (s.27): first registration where the proof is good but not perfect. Same estate, with a warning written on. It can be upgraded later."],
+  ["Indefeasibility and its gaps", "Frazer v Walker: indefeasibility is immunity from older claims, not a promise that nothing can touch the owner. The gaps: fraud, adverse possession, the overriding interests in s.70, anything written on the certificate and personal claims against the owner himself."],
+  ["What the certificate doesn't tell you", "Who's living there (go and look). Instruments and caveats lodged but not yet endorsed (get a search certificate, s.144). Trusts (never on the title, s.60). The s.70 interests: public rights of way, easements by long use, unpaid tax and water rates, a tenant under a lease of three years or less. Whether a part-of-land transfer has subdivision approval."],
+  ["Searching", "Anyone may search on paying the fee (s.76), but not the papers lodged with a first registration (s.42). A search certificate (s.144) catches caveats, lodged instruments, orders and injunctions not yet on the title. Search before contract. Get a search certificate before completion."],
+  ["The fraud sections", "s.68: the certificate is conclusive evidence. s.70: subject to the listed burdens \"except in case of fraud\". s.71: a buyer isn't affected by notice of trusts or unregistered interests, fraud excepted. s.153: the Registrar may cancel an entry got by fraud. s.161: recovery of land from a registered owner only on a short list, including deprivation by fraud. s.178: false declarations are an offence and the title is void against those in on it."],
+  ["What fraud means", "Actual dishonesty by the registered owner or his agent (Assets Co v Mere Roihi; Butler v Fairclough; Waimiha Sawmilling; Carty v McPherson). Not carelessness. Deliberately not asking when you suspect something can be fraud. Lodging a forged document you honestly believe genuine isn't. Arem v Myrie: the judge had to find Mrs Myrie knew. Sue v Peart: a title got by false declarations was cancelled."],
+  ["After a fraud", "While the fraudster is on the Register, the victim can have it corrected. Once he sells to a bona fide purchaser for value without notice who registers, that buyer's title is indefeasible. The victim sues the fraudster or claims from the assurance fund."],
+  ["Bringing land under the Act", "Who may apply (s.28). The application before a JP, with the land described by metes and bounds or plan (s.30), its value, occupiers, adjoining owners and burdens. The applicant's declaration of possession, two declarations from independent people who have known the land thirty years, the deeds or receipts, a pre-checked plan with the surveyor's declaration, a tax certificate and fees."],
+  ["The first registration process", "Survey check, then the Referee of Titles. Provisional approval, advertisement in the Gazette and a newspaper, notice to adjoining occupiers (s.33). Caveats within the notice period (s.43) lapse a month after lodging unless proceedings start or an injunction is served (ss.44 and 45). Then registration (s.37), usually about seven weeks after the first advertisement."],
+  ["Adverse possession", "Twelve years defeats the paper owner (ss.85 to 87; Limitation of Actions Act ss.3 and 30). Prove factual possession and the intention to possess (Wills v Wills; Pottinger v Raffone). Permission is fatal (Ramnarace v Lutchman). One joint tenant's licence binds all (Sarju v Sarju). The Referee may still ask for thirty years where the old owner can't be found, though Hall and Pitter says twelve is enough absent disability."],
+  ["Lessons from Sarju and Sue v Peart", "What a client swears at the Titles Office can be used against him for life. Find out how he got onto the land before lodging anything. A caveat protects an existing interest. A bare licensee has none. Know the Notice to Caveator timetable (s.140(2))."],
+  ["Instruments", "Prescribed forms, not deeds. Transfer (s.88). Mortgage as a charge (s.103), discharged by endorsement. No trusts on the Register (s.60): transfer to the trustees and sign a separate declaration of trust. Stamp duty and transfer tax first (s.176; Transfer Tax Act s.33)."],
+  ["Signing and witnessing (s.152)", "By hand in ink, names matching the title. In Jamaica before a JP, judge, the Registrar, a notary, the Governor-General or an attorney-at-law. Abroad before the officials the Act lists, or a notary with a certificate of commission. Any other witness must complete the probate clause before one of them. Powers of attorney must be deposited first (ss.149 to 151). Companies sign under s.127."],
+  ["Why the Registrar sends a transfer back", "Name doesn't match the title. Company struck off. Transferor a child or of unsound mind. Description doesn't match. No consideration. Two transferees without saying how they hold. Undeposited power of attorney. A caveat, order or mortgage on the title not dealt with. 100 acres or more without consent. No transfer tax certificate."],
+  ["Selling part of a lot", "Subdivision approval under the Local Improvement Act must accompany any part-of-land dealing. Routes: a pre-checked part-of-land plan and TR2 transfer producing a splinter title, or a deposited subdivision plan and surrender (ST1), or lot-by-lot transfers against the deposited plan."]
+ ]
+};
+
+const QUIZ = {
+ ch1: [
+  {q:"What's the largest estate known to the law?", o:["Fee tail","Fee simple absolute in possession","Life estate","Leasehold"], a:1, w:"It's treated as equivalent to permanent ownership."},
+  {q:"\"To Fred and the heirs of his body\" creates what?", o:["A fee simple","A fee tail","A life estate","A determinable fee"], a:1, w:"\"Heirs of his body\" confines descent to lineal descendants."},
+  {q:"A life tenant leaves everything by will. What passes under the will from her life estate?", o:["The fee simple","Her life estate","Nothing","Half the land"], a:2, w:"A life estate ends on the holder's death. There's nothing left for the will to pass."},
+  {q:"\"For so long as it is used as a school\" creates what?", o:["A conditional fee simple","A determinable fee simple","A fee tail","A lease"], a:1, w:"Words of duration mark the limit of the estate. It ends automatically when the use stops."},
+  {q:"Michelle grants Joe a life interest and nothing more. Joe transfers it to Marsha and later dies. Who's entitled now?", o:["Marsha","Joe's estate","Michelle","The Crown"], a:2, w:"Marsha held an estate pur autre vie measured by Joe's life, which ended at his death. Michelle kept the fee simple in reversion."},
+  {q:"Adam grants Eve a life interest with remainder to Jacob. Jacob dies first. What happens to his remainder?", o:["It's lost","It passes under Jacob's will or to his next of kin","It goes to Eve","It goes back to Adam"], a:1, w:"A vested remainder is a present interest. Whoever takes it gets possession when Eve dies."},
+  {q:"Can a tenant for life sell the fee simple?", o:["No, only her own life interest","Yes, under the Settled Land Act s.3","Only with the remaindermen's consent","Only with a court order"], a:1, w:"At common law she could sell only her life interest. The Act gave her power over the fee simple."},
+  {q:"On a sale of settled land, who receives the purchase money?", o:["The tenant for life","The remaindermen","At least two trustees of the settlement, or the court","The buyer's bank"], a:2, w:"Sections 25 and 47. Never the tenant for life."},
+  {q:"How much notice must the tenant for life give the trustees before selling?", o:["None","A week","At least one month, by registered post, before the sale or the contract","Six months"], a:2, w:"Section 53. A life tenant who signs an agreement for sale first is already in breach."},
+  {q:"Can the trustees of the settlement veto a sale?", o:["Yes","No. They receive notice and the money and can go to court","Only if the price is low","Only if the remaindermen object"], a:1, w:"Notice isn't consent. Their remedy is an application to court under s.52."},
+  {q:"A will names executors and trustees but says nothing about the Settled Land Act or a power of sale over the land. Are they trustees of the settlement?", o:["Yes, automatically","No. Without those words, apply to court under s.44","Only if they agree","Only for leases"], a:1, w:"Section 2(9) needs a power of sale or a declaration that they're trustees for the purposes of the Act."},
+  {q:"For what can a tenant for life mortgage the fee simple?", o:["Any purpose","Raising equality money on an exchange or partition, or paying off an incumbrance","Her own living expenses","Buying another home"], a:1, w:"Sections 20 and 21. She can charge her own life interest, but that's poor security."},
+  {q:"What's the longest lease a tenant for life may grant for an ordinary purpose?", o:["7 years","21 years","60 years","99 years"], a:1, w:"Section 8: 21 years generally, 60 for mining and 99 for building. A lease must be by deed (s.10), except a lease of three years or less (s.9)."},
+  {q:"A will says the widow's life interest ends if she stops living in the house. Can that stop her selling?", o:["Yes","No. A term that discourages use of the statutory powers is void to that extent","Only if the remaindermen object","Only for a year"], a:1, w:"Section 57. Re Paget's Settled Estates."},
+  {q:"A buyer purchases the legal estate for value with no notice of a trust. What happens to the beneficiary's interest in the land?", o:["It binds the buyer","It's defeated, leaving a personal claim against the trustee","It becomes a mortgage","It passes to the Crown"], a:1, w:"The bona fide purchaser of the legal estate for value without notice takes free of equitable interests."},
+  {q:"A father encourages his son to build on the father's land. The father dies leaving it to others. What protects the son?", o:["Nothing","Proprietary estoppel","Adverse possession","The Settled Land Act"], a:1, w:"Inwards v Baker: assurance, reliance and detriment."}
+ ],
+ ch3: [
+  {q:"The seller and buyer sign the transfer and the buyer pays. Is the buyer now the legal owner?", o:["Yes","No. Title passes on registration","Yes, once stamped","Yes, once the keys are handed over"], a:1, w:"RTA ss.59, 63 and 88."},
+  {q:"Which Torrens principle means nobody needs to look behind the Register?", o:["Mirror","Curtain","Insurance","Overreaching"], a:1, w:"Mirror: the Register reflects the facts. Insurance: the State compensates if it's wrong."},
+  {q:"The Register is wrong and someone loses out. Where does compensation come from?", o:["The Registrar personally","The assurance fund","The buyer's insurer","Nowhere"], a:1, w:"RTA ss.158 and 161 to 164."},
+  {q:"What's a qualified title?", o:["A title issued to an attorney","A first title issued where the title is imperfect, subject to the qualifications endorsed","A title with a mortgage on it","A title to Crown land"], a:1, w:"RTA s.27. It can later be upgraded to absolute."},
+  {q:"Which of these is not an exception to indefeasibility?", o:["Fraud","Adverse possession","The s.70 interests","The owner bought below market value"], a:3, w:"The other gaps include interests endorsed on the title and personal claims against the owner."},
+  {q:"What does a search certificate do that a plain search doesn't?", o:["Nothing more","It certifies whether the owner is free to deal, catching caveats and pending instruments","It guarantees the boundaries","It transfers the title"], a:1, w:"Section 76 against s.144."},
+  {q:"Which of these binds a buyer even though it's not on the certificate?", o:["An unregistered ten-year lease","A tenant in possession under a lease of three years or less","An unregistered mortgage","An oral option to buy"], a:1, w:"RTA s.70."},
+  {q:"An applicant for first registration has no deeds. How long must possession of private land usually be?", o:["5 years","12 years","20 years","60 years"], a:1, w:"Limitation of Actions Act s.3. Crown land needs 60."},
+  {q:"Sunny has lived on the lot for 20 years with the permission of one of three joint tenants. Can he get title by adverse possession?", o:["Yes","No. Possession with permission is never adverse and one joint tenant's licence binds all","Only if he paid the taxes","Only with all three owners' consent"], a:1, w:"Sarju v Sarju [2022] JMSC Civ 126."},
+  {q:"What is a registered mortgage of land in Jamaica?", o:["A transfer of the fee simple with a right to redeem","A charge on the land","A lease to the lender","A caveat"], a:1, w:"RTA s.103. A transfer with a right to redeem is the common law mortgage of unregistered land."},
+  {q:"Before whom can an instrument be signed for the Registrar to accept it?", o:["Any adult","A JP, a notary public or an attorney-at-law, among others","Only a judge","Only the Registrar"], a:1, w:"RTA s.152."},
+  {q:"A transfer is signed on 1 March and lodged on 10 March. A mortgage is signed on 5 March and lodged on 8 March. Which has priority?", o:["The transfer","The mortgage","Neither","Whichever is stamped first"], a:1, w:"Priority follows lodgement and registration."},
+  {q:"What counts as fraud under the RTA?", o:["Any mistake on the title","Carelessness","Actual dishonesty by the registered owner or the owner's agent","Paying too little"], a:2, w:"Assets Co v Mere Roihi [1905] AC 176."},
+  {q:"In Arem v Myrie, why wasn't a forged signature enough on its own?", o:["Forgery isn't fraud","The court also had to find the registered owner knew it was forged","The forgery was too old","The title was lost"], a:1, w:"An innocent owner who registers a forged transfer isn't guilty of fraud under the Act."},
+  {q:"A fraudster sells to an innocent buyer who registers. What can the original owner get from the State?", o:["Nothing","Compensation from the assurance fund","The land back","A new title"], a:1, w:"The innocent buyer's title is indefeasible. The original owner can also sue the fraudster."},
+  {q:"After the Referee provisionally approves a first registration, how can someone object?", o:["They can't","By lodging a caveat within the time in the advertised notice","By letter to the neighbours","Through the parish council"], a:1, w:"RTA ss.33 and 43. The caveat lapses after a month unless proceedings start (ss.44 and 45)."}
+ ]
+};
+
+const CARDS = {
+ ch1: [
+  {f:"Four tests for any estate", b:"Can the holder sell it in his lifetime? Give it away? Leave it by will? Does it pass to his next of kin on intestacy?"},
+  {f:"Determinable against conditional", b:"Determinable: words of duration, ends automatically. Conditional: words of condition, continues until the grantor re-enters."},
+  {f:"Estate pur autre vie", b:"A life estate measured by someone else's life. It also arises when a life tenant transfers her interest."},
+  {f:"Remainder against reversion", b:"Remainder: to a third party after the prior estate. Reversion: what the grantor keeps. Both are present interests."},
+  {f:"Walsh v Lonsdale (1882) 21 Ch D 9", b:"An agreement for a lease is treated in equity as a lease on the same terms, if specific performance is available."},
+  {f:"Inwards v Baker [1965] 2 QB 29", b:"Proprietary estoppel: assurance, reliance and detriment."},
+  {f:"Settled Land Act s.2(2)", b:"A settlement: an instrument under which land stands limited to persons by way of succession. Joint owners aren't a settlement."},
+  {f:"Settled Land Act s.53", b:"A month's notice by registered post to each of at least two trustees before the sale or the contract."},
+  {f:"Settled Land Act ss.25 and 47", b:"Capital money goes to at least two trustees or into court. Never to the tenant for life."},
+  {f:"Settled Land Act ss.57, 58 and 59", b:"Powers can't be cut down. Using them causes no forfeiture. The tenant for life acts as a trustee."},
+  {f:"Settled Land Act ss.65 and 66", b:"Land an infant is entitled to in possession is deemed settled. The trustees or the court exercise the powers."},
+  {f:"Middlemas v Stevens [1901] 1 Ch 574", b:"A widow tried to lease the house to the man she meant to marry. The court stopped her. Powers must serve the settlement."},
+  {f:"Jacas v Jacas [2017] JMSC Civ 77", b:"Remaindermen were kept out of the house. The life tenant has the right to exclusive possession. Remaindermen wait."},
+  {f:"The one sentence the life tenant needs to hear", b:"You can sell the land, but the money won't come to you."}
+ ],
+ ch3: [
+  {f:"RTA ss.59, 63 and 88", b:"Title passes on registration, not on signing or payment."},
+  {f:"The three Torrens principles", b:"Mirror, curtain and insurance."},
+  {f:"The assurance fund", b:"RTA ss.158 and 161 to 164. Compensation if the Register is wrong."},
+  {f:"RTA s.26 against s.27", b:"Absolute title against qualified title."},
+  {f:"RTA s.70", b:"Public rights of way. Easements by user. Unpaid taxes and rates. A tenant under a lease of three years or less."},
+  {f:"RTA s.76 against s.144", b:"A search against a search certificate."},
+  {f:"RTA s.103", b:"A registered mortgage is a charge, discharged by endorsement."},
+  {f:"RTA s.152", b:"Who may witness an instrument: a JP, judge, Registrar, notary, Governor-General or attorney-at-law."},
+  {f:"RTA s.28", b:"Who may apply to bring land under the Act."},
+  {f:"Assets Co v Mere Roihi [1905] AC 176", b:"Fraud means actual dishonesty. Carelessness isn't enough."},
+  {f:"Arem v Myrie [2018] JMSC Civ 49", b:"The registered owner had to know the signature was forged."},
+  {f:"Sue v Peart", b:"A title got by false declarations of possession was cancelled and the earlier title restored."},
+  {f:"Sarju v Sarju [2022] JMSC Civ 126", b:"Permission means no adverse possession. One joint tenant's licence binds all."},
+  {f:"Hall and Pitter v Registrar of Titles [2016] JMSC Civ 203", b:"Twelve years' possession is enough unless there's evidence of disability."}
+ ]
+};
+
+// Extra exam-style quiz questions, flashcards and exam practice scenarios
+const QUIZ_X = {
+ ch1: [
+  {q:"A purchaser knows the life tenant is selling cheaply to a friend to spite the remaindermen. Is the purchaser protected?", o:["Yes, always","No. A purchaser who knows the power is being misused isn't protected","Yes, if he paid the trustees","Only if the title is registered"], a:1, w:"Chandler v Bradley [1897] 1 Ch 315. Such a purchaser may also decline to complete (Hatten v Russell)."},
+  {q:"You act for the purchaser of settled land. To whom do you pay the price?", o:["The tenant for life","The trustees, who join in to give a receipt","The remaindermen","The Registrar"], a:1, w:"Section 48: the trustees' receipt is a full discharge."},
+  {q:"The title reads: \"... for the term of her natural life and thereafter to Ann, Ben and Carl as Tenants in Common in equal shares\". Ben dies before the life tenant. What happens to his share?", o:["It passes to Ann and Carl","It passes under Ben's will or on his intestacy","It goes to the life tenant","It lapses"], a:1, w:"Tenants in common: no survivorship. Had they been joint tenants, Ann and Carl would take by survivorship."},
+  {q:"Vera is the registered life tenant of an apartment. Her two adult sons are the remaindermen and don't want it sold. Can Vera sell?", o:["No. The remaindermen must agree","Yes. Her statutory power of sale doesn't depend on their consent","Only with a court order","Only her life interest"], a:1, w:"Settled Land Act s.3. The sons' objection doesn't stop a proper sale. They're protected by the trustees, notice, best price and the rule that the money goes to the trustees. (July 2026 Q2)"},
+  {q:"Vera wants a $20m deposit on a $50m sale. What should her attorney flag?", o:["Nothing. Deposits are negotiable","The deposit is 40 per cent, well above the usual 10. It may not be forfeitable","The deposit must go to the remaindermen","Deposits aren't allowed on settled land"], a:1, w:"Workers Trust and Merchant Bank v Dojap Investments. A vendor who wants more than 10 per cent as a forfeitable deposit must show special circumstances."},
+  {q:"Vera plans to use part of the $50m for a 12-day cruise and invest the rest. What's the problem?", o:["None","The purchase money is capital. It goes to the trustees or into court. She gets only the income","She must pay tax first","Cruises aren't allowed under a will"], a:1, w:"Sections 25 and 47. Overreaching moves the sons' interest from the apartment to the money."},
+  {q:"Vera wants to complete in 60 days. What must happen before she signs the agreement for sale?", o:["Nothing","A month's notice by registered post to each trustee","The sons must sign","The Registrar must approve"], a:1, w:"Section 53. Notice comes before the contract, not after. If there are no trustees, they must be appointed first."},
+  {q:"Mary is life tenant of 12 acres under her husband's will. No trustees were appointed. A developer wants to buy. What's her first step?", o:["Sign with the developer","Apply to the court for trustees, by Fixed Date Claim Form and affidavit under s.44","Ask her sons to sign","Lodge a caveat"], a:1, w:"Without trustees there's nobody to receive notice or the capital money. (July 2024 Q1)"},
+  {q:"Mary's son says the market is down 30 per cent and a highway will raise the value. Can he stop her selling?", o:["Yes, as remainderman","No. But she must get the best price reasonably obtainable and act as a trustee for him","Only if he pays her debts","Only if the land is registered"], a:1, w:"Sections 6 and 59. A sale at an undervalue in a falling market can be challenged. Get a current market valuation and test the market."},
+  {q:"Mary needs income now to pay medical bills and doesn't want to sell at the bottom of the market. What option does the Act give her?", o:["Mortgage the land","Lease it for up to 21 years at the best rent. Rent is income and belongs to her","Sell half","Nothing"], a:1, w:"Sections 8 and 10. A lease by deed, in possession within twelve months, with a covenant for rent and a right of re-entry."},
+  {q:"Can Mary mortgage the fee simple to pay her husband's medical bills?", o:["Yes","No. The statutory power to mortgage covers only equality money and discharging an incumbrance","Yes, with one son's consent","Only up to half the value"], a:1, w:"Sections 20 and 21. She can charge her own life interest, but it ends on her death."},
+  {q:"Lisa is life tenant of a bungalow. Karen, the remainderman and executrix, moves her boyfriend in and tells Lisa to leave. What's Lisa's position?", o:["Karen is entitled as remainderman","Lisa is entitled to exclusive possession for her life. Karen must wait","They share possession","The executrix decides"], a:1, w:"Jacas v Jacas [2017] JMSC Civ 77: remaindermen, including one who was an executor, were kept out. (August 2025 Q3)"},
+  {q:"Lisa wants to sell the bungalow and use the money to buy a strata unit in her own name. Can she?", o:["Yes","She can sell, but the money goes to the trustees. She can't take the capital to buy a unit for herself","No, she can't sell at all","Only if Karen agrees"], a:1, w:"The capital is held for the remainderman too. It can be invested or applied only as the Act allows."},
+  {q:"Mr Hopper is life tenant. The executors and trustees are his brother's friends. He wants to sell to his wealthy friend Douglas and use the money to buy a villa. What must he show about the price?", o:["Nothing, if Douglas is wealthy","That he got the best price reasonably obtainable, with a market valuation and proper marketing","That the remainderman agreed","That the villa is cheaper"], a:1, w:"Section 6. A sale to a friend gets close scrutiny. A power used for a collateral purpose will be stopped (Middlemas v Stevens). (August 2022, Part E)"},
+  {q:"Roxy has an insurance valuation of $10.5m and a $10m offer. Is the offer good evidence of the best price?", o:["Yes","No. An insurance valuation measures replacement cost, not open market value","Yes, if paid in cash","Only if the trustees agree"], a:1, w:"Get a current open market valuation and advertise the property."},
+  {q:"A will says: \"to my wife for life, then to my children\". It appoints executors and trustees but nothing more. A sale is proposed. What's missing?", o:["Nothing","Trustees of the settlement under s.2(9). The executors aren't trustees for the Act's purposes unless the will says so or gives a power of sale","Probate","The remaindermen's consent"], a:1, w:"Compare the will of John Brown, which appointed trustees \"for all the purposes of the Settled Land and Conveyance Laws\"."},
+  {q:"A remainderman aged 14 is entitled under the will. Does his consent matter to a proper sale by the life tenant?", o:["Yes. Nothing can happen until he's 18","No. His consent isn't needed, but the life tenant acts as his trustee","His guardian must consent","The court must consent"], a:1, w:"Section 59. If he became entitled in possession while a minor, the land would be deemed settled and the trustees would act (ss.65 and 66)."}
+ ],
+ ch3: [
+  {q:"A trust is declared over registered land. How does it appear on the title?", o:["It's endorsed on the certificate","It doesn't. Trusts are never entered on the Register","As a caveat","As a restrictive covenant"], a:1, w:"RTA s.60. Transfer to the trustees outright and sign a separate declaration of trust. A beneficiary may protect the interest by caveat."},
+  {q:"Which of these isn't a reason the Registrar would send back a transfer?", o:["The transferor's name doesn't match the title","Two transferees without saying how they hold","No transfer tax certificate","The buyer paid less than the asking price"], a:3, w:"Handout 6 lists the common rejections. The consideration must be stated, but the Registrar doesn't judge whether it's a good price."},
+  {q:"What two things must an adverse possessor prove?", o:["Payment of tax and a survey","Factual possession and an intention to possess to the exclusion of all, including the paper owner","A deed and a will","Permission and time"], a:1, w:"Wills v Wills; Pottinger v Raffone. Permission defeats it (Ramnarace v Lutchman)."},
+  {q:"Adassa has probate for her husband's estate and nothing more. The bank's search shows the family doesn't own the house. Why?", o:["Probate passes title","Transmission was never registered, so the Register still shows her husband","The search was wrong","The house was mortgaged"], a:1, w:"Title moves on registration (ss.59, 63 and 88). She must be registered on transmission before she can deal with the land. (May 2026 Q1)"},
+  {q:"The bank will lend to Adassa and her children. On whose title can it take a mortgage?", o:["Her husband's","Only a title registered in the names of those who are to give the mortgage","The executrix's on the strength of probate alone","Anyone in occupation"], a:1, w:"The mortgagors must be on the Register. Transmission first, then the transfer to the devisees."},
+  {q:"Edward is the registered owner of land his brother and sister-in-law paid for. He sells to a buyer who knows nothing and registers. What happens to their claim to the land?", o:["It binds the buyer","It's defeated. The buyer's registered title is indefeasible unless the buyer was party to fraud","The sale is void","The Registrar cancels it"], a:1, w:"That's why the Halsalls must lodge a caveat at once. Their remedy after a sale would be against Edward personally. (July 2026 Q1)"},
+  {q:"What interest do the Halsalls have that can support a caveat?", o:["None","An equitable interest under a trust, since they paid for the land and house","A legal estate","A lease"], a:1, w:"They have the receipts and invoices to show it. The caveat protects that interest while it's resolved."},
+  {q:"A bank sells under its power of sale to a buyer connected to the manager. The buyer registers. Can the borrower recover the land from the buyer?", o:["Yes, always","Only if the buyer was party to fraud or collusion. Otherwise the remedy is damages against the bank","No, never","Only within a year"], a:1, w:"The registered buyer is protected unless there's fraud. The examiners named \"advising the client to sue the buyer\" as an error."},
+  {q:"Misha is selling her house. A tenant is in occupation and has promised to leave before completion. What does Chapter 3 tell you about the tenant?", o:["Nothing","A tenant in possession under a lease of three years or less binds the buyer even though it's not on the title","The tenant is bound to leave","The buyer can evict on registration"], a:1, w:"RTA s.70. Deal with it in a special condition for vacant possession. (May 2023 Q3)"},
+  {q:"Jack and Jill believe the unit they're buying is in a 15-unit strata complex. What should their attorney check first?", o:["Nothing. Their belief is enough","Search the Register and get a search certificate to confirm the unit's own strata title and what's against it","Ask the developer","Check the price"], a:1, w:"RTA ss.76 and 144. \"Client believes\" is a prompt to verify. (August 2023 Q2)"},
+  {q:"Mrs Campbell lives abroad and holds her duplicate title. Someone else is now registered as owner. What's the immediate protective step?", o:["Wait for a court date","Lodge a caveat with a statutory declaration and ask the Registrar to consider a Registrar's caveat","Write to the occupiers","Apply for a new title"], a:1, w:"RTA ss.139 and 15. It stops a sale to an innocent buyer, whose title would then be indefeasible against her."},
+  {q:"The transfer of Mrs Campbell's land was forged and the forger is still registered. What can the court order?", o:["Nothing","A declaration of fraud, cancellation of the entry and a title restored in her name","Damages only","A new survey"], a:1, w:"Arem v Myrie and Sue v Peart. RTA ss.153 and 161. If an innocent buyer has registered, she's left with the assurance fund."},
+  {q:"Keith built a shop on his aunt's land with her permission and her promise that it would be his one day. She sold to Mr Green, who registered. Does Keith's adverse possession claim succeed?", o:["Yes, after 12 years","No. He was there with permission","Yes, because he paid the taxes","Only against his aunt"], a:1, w:"Permission means possession was never adverse. His better claim is proprietary estoppel, but against a registered buyer without fraud it's likely only personal against the aunt."},
+  {q:"Stephen has a common law title and 44 years' possession. His bank wants a registered title. What's the route?", o:["Record the deeds again","Apply to bring the land under the Registration of Titles Act","Lodge a caveat","Nothing can be done"], a:1, w:"Ss.28 and following. The Referee examines the title, the application is advertised and anyone claiming an interest can caveat within the notice period."},
+  {q:"An executor has contracted to sell, but isn't yet registered on transmission. Can the executor complete the sale?", o:["Yes, on probate alone","Not until registered on transmission","Only with the buyer's consent","Only through the court"], a:1, w:"An executor may contract to sell but must be registered to give title. No transfer to himself is needed."},
+  {q:"A Jamaican owner in Toronto signs a transfer before her sister. Will the Registrar accept it?", o:["Yes","Not unless the sister appears before a prescribed functionary to complete the probate clause","Yes, if notarised later","Only if stamped in Canada"], a:1, w:"RTA s.152. A Canadian notary with the proper certificate would do."},
+  {q:"Your client wants to sell the back half of his registered lot. What must exist before the Registrar issues a title for that half?", o:["Only a transfer","A surveyed and approved plan, subdivision approval and a part-of-land transfer","A caveat","A will"], a:1, w:"Then the Registrar issues a splinter title and endorses the parent title."}
+ ]
+};
+
+const CARDS_X = {
+ ch1: [
+  {f:"Plain words: \"overreaching\"", b:"On a sale, everyone's interest moves from the land to the money."},
+  {f:"Plain words: \"tenant for life\"", b:"The person entitled to the land for her lifetime, who has the Act's powers over the whole fee simple."},
+  {f:"Chandler v Bradley [1897] 1 Ch 315 and Hatten v Russell (1888) 38 Ch D 334", b:"A purchaser who knows the power is being misused isn't protected and may decline to complete."},
+  {f:"Re Wix [1916] 1 Ch 279", b:"Rent under a lease by the tenant for life is income, not capital."},
+  {f:"Settled Land Act s.48", b:"The trustees' receipt fully discharges the purchaser."},
+  {f:"\"Share and share alike\" against no words of severance", b:"Tenants in common, with no survivorship, against joint tenants, where the survivor takes the whole."},
+  {f:"The life tenant wants the money for herself. Your first line of advice", b:"You can sell, but the purchase money goes to the trustees. You get the income only."},
+  {f:"No trustees of the settlement", b:"Apply to the Supreme Court by Fixed Date Claim Form and affidavit under s.44(1), with the proposed trustees' written consent and evidence of fitness. Serve the remaindermen."},
+  {f:"The remaindermen object to the sale", b:"No veto. Their protection: notice to trustees, best price, capital to trustees and the life tenant's duty as trustee (s.59)."},
+  {f:"The life tenant needs income, not a sale", b:"A lease for up to 21 years at the best rent (ss.8 and 10). Rent is income and belongs to her."},
+  {f:"A remainderman moves in during the life interest", b:"He can't. The life tenant is entitled to exclusive possession (Jacas v Jacas)."},
+  {f:"Insurance valuation", b:"Replacement cost, not market value. Get an open market valuation and advertise."}
+ ],
+ ch3: [
+  {f:"Gibbs v Messer (1891) AC 248", b:"The point of the system: a buyer needn't go behind the register."},
+  {f:"Frazer v Walker [1967] 1 AC 569", b:"Indefeasibility is immunity from older claims, not a promise that nothing can touch the owner. Personal claims survive."},
+  {f:"RTA s.60", b:"No trusts on the Register. Transfer to the trustees and sign a separate declaration of trust."},
+  {f:"RTA s.178", b:"A false declaration to get a title is an offence. The title is void against those in on it."},
+  {f:"Wills v Wills and Pottinger v Raffone", b:"Adverse possession needs factual possession and an intention to possess to the exclusion of everyone, the paper owner included."},
+  {f:"Plain words: \"splinter title\"", b:"The new title carved off the parent title for the piece of land sold."},
+  {f:"Plain words: \"probate clause\"", b:"The official's note confirming the signing, needed when an ordinary person witnessed the signature."},
+  {f:"Probate but no transmission", b:"The deceased is still the registered owner. Nobody can give a mortgage or transfer until transmission is registered."},
+  {f:"Registered owner holding land someone else paid for", b:"He can sell to an innocent buyer who'll take free of the claim. Lodge a caveat at once."},
+  {f:"Buyer from a mortgagee registers", b:"Protected unless party to fraud or collusion. The borrower's remedy is damages against the mortgagee."},
+  {f:"Owner abroad finds someone else on the title", b:"Search, caveat with a statutory declaration, ask for a Registrar's caveat, then sue for a declaration and cancellation (ss.139, 15, 153 and 161)."},
+  {f:"\"Client believes it's a strata unit\"", b:"Verify. Search the Register and get a search certificate before contract."},
+  {f:"Common law title, long possession, bank wants registered title", b:"Apply to bring the land under the Act. Referee, advertisement, caveat window, then title."}
+ ]
+};
+
+// Exam practice: recycled past-paper scenarios
+const PRACTICE = {
+ ch1: [
+  {src:"Based on July 2026, Question 2", also:"Same pattern: August 2022 Part E (Mr Hopper) and August 2025 Question 3 (Lisa)",
+   facts:"Vera is the registered life tenant of a three-bedroom apartment. Her two adult sons are the registered remaindermen. Vera lives mostly abroad and has accepted an offer of $50m from Mr Deleo. She wants a $20m deposit on signing and completion in 60 days so she can pay for a cruise, then invest the rest and live off the interest. Her sons don't want the apartment sold.",
+   task:"Prepare a letter to Vera advising on (i) whether she is entitled to sell and what she must bear in mind, (ii) her instructions on the deposit and completion date and (iii) the general conditions of sale she should expect.",
+   cover:["Letter format with headings, addressed to Vera","She holds a life interest under a settlement and is tenant for life (ss.2(2), 2(6))","She can sell the fee simple without her sons' consent (s.3) and the will can't stop her (s.57)","Trustees: are there any? If not, a s.44 application first","A month's notice by registered post to the trustees before contract (s.53)","Best price: valuation and marketing (s.6). She acts as a trustee for her sons (s.59)","The $50m goes to the trustees or into court (ss.25 and 47). She gets income only. No cruise from capital","The 40 per cent deposit: above 10 per cent, Dojap","60 days: realistic only if trustees exist and notice has run","General conditions: parties, property, price, deposit and stakeholder, completion, title, possession, apportionments, time of the essence, default"],
+   errors:["Telling Vera the money is hers","Saying the sons can block the sale","Missing the notice before contract","Ignoring the deposit percentage","Drafting an agreement for sale when told not to"]},
+  {src:"Based on July 2024, Question 1", also:"Same pattern: May 2022 Part B (Donald and Sea Scape Villa)",
+   facts:"Mathew left 12 acres to his wife Mary for life, then to their sons James and John as joint tenants. Mary is sole executrix. No trustees were appointed. The interests are endorsed on the title. Mary is in debt from Mathew's medical bills and a developer wants to buy. James objects: the market is down 30 per cent and a new highway will raise the value.",
+   task:"Write a letter to Mary advising her on (a) the options for using the property to generate funds and what she must consider and (b) the issues arising because no trustees were appointed and the steps to deal with them, with the documents and their contents.",
+   cover:["Letter format with headings","Mary is tenant for life of settled land","Options: sell the fee simple (s.3) or lease for up to 21 years (s.8). She can't mortgage the fee simple for her debts (ss.20 and 21)","Considerations: best price in a falling market (s.6), her duty as trustee (s.59), rent is income but sale money is capital","No trustees: nobody to receive notice or capital money, so no valid sale yet","Steps: Fixed Date Claim Form and affidavit under s.44(1), exhibiting the will, probate and title, with the proposed trustees' consents and fitness","Then notice to trustees, valuation, marketing, contract, money to trustees","James's objection isn't a veto, but his point on price matters"],
+   errors:["Saying James must consent","Suggesting a mortgage of the fee simple to pay debts","Missing the lease option","Listing steps without the affidavit's contents"]},
+  {src:"Based on August 2025, Question 3", also:"Same pattern: July 2026 Question 2 (Vera)",
+   facts:"Nathan left his bungalow to Lisa for life and then to his daughter Karen. Karen is executrix and has registered the interests on the title. Karen has moved her boyfriend in and told Lisa to leave. Lisa wants to sell and use the money to buy a strata unit to get away from Karen.",
+   task:"Write a letter to Lisa advising her of her rights under the will and whether she can sell the property and use the proceeds.",
+   cover:["Letter format with headings","Lisa has a life interest. Karen has the remainder","Lisa is entitled to exclusive possession. Karen and her boyfriend have no right to be there (Jacas v Jacas). Remedies: demand, then injunction","Lisa is tenant for life with power to sell (s.3)","Trustees, notice (s.53), best price (s.6)","The money goes to the trustees. Lisa gets income only. She can't take the capital to buy a unit for herself","Practical options: stay and enforce her right to possession, or sell and live on the income"],
+   errors:["Saying the executrix controls possession","Saying Lisa can use the proceeds as she likes","Not advising on getting Karen out"]}
+ ],
+ ch3: [
+  {src:"Based on May 2026, Question 1", also:"Same pattern: May 2024 Question 1 and October 2020 (lost or destroyed titles in an estate)",
+   facts:"Adassa is sole executrix of her late husband's will and has probate. Nothing else has been done. The will leaves his properties to her and their two adult children as joint tenants. The duplicate title for their home was stolen from the office manager's car. The bank says its search shows the family doesn't own the house and it wants an updated duplicate title before it will lend.",
+   task:"Prepare a letter to Mrs Browne advising on the procedural steps to put her and her children in a position to give the bank an updated duplicate title, with the documents required and their contents.",
+   cover:["Letter format with headings","Why the bank is right: title passes on registration, so the Register still shows her husband (ss.59, 63 and 88)","Transmission to Adassa as executrix (Chapter 4)","Replacement of the stolen duplicate: statutory declaration and its contents, police report, advertisement (Chapter 5)","Transfer to Adassa and the children as joint tenants under the will","Then the updated duplicate the bank can take a mortgage against","The order matters: each step depends on the one before"],
+   errors:["Treating probate as giving title","Getting the steps out of order","Naming documents without their contents"],
+   note:"You'll finish this answer after Chapters 4 and 5. For now, get the Chapter 3 reasoning right: why the bank's search shows what it does."},
+  {src:"Based on July 2026, Question 1", also:"Same pattern: August 2022 Part A (16 Chisholm Avenue)",
+   facts:"Keneon and Keisha Halsall sent money from abroad for 20 years to Keneon's brother Edward to buy land and build their retirement home. They have Edward's invoices for $35m and their bank's transfer receipts. They come home to find the land registered in Edward's name alone and advertised for sale.",
+   task:"Advise the Halsalls on (i) the steps, apart from court proceedings, they can urgently take against Edward to protect their interest and (ii) Edward's options in response, with the documents required and the information needed for them.",
+   cover:["Letter format with headings","Why it's urgent: Edward is the registered owner and a buyer who registers in good faith will take free of their claim (indefeasibility)","Their interest: equitable, under a trust, because they paid","Lodge a caveat (s.139) with a statutory declaration setting out how the interest arose, exhibiting the invoices and receipts","Edward's options: ask them to withdraw, take the steps for the caveat to lapse under s.140, or apply to court for its removal","Warning: a caveat lodged without reasonable cause exposes the caveator to damages"],
+   errors:["Going straight to court proceedings when told not to","Missing Edward's side of the question","Not explaining why registration makes it urgent"],
+   note:"Caveats are Chapter 6. The Chapter 3 point is the reason the caveat is urgent."},
+  {src:"Based on the Chapter 3 progress quiz", also:"Linked to fraud and indefeasibility in power of sale questions",
+   facts:"Mrs Campbell lives in Florida and holds the duplicate title to her house in Mandeville. A friend says someone else's name is now on the title and a family is living in the house. She has never signed a transfer.",
+   task:"Set out (a) the searches and inquiries in the first week, (b) the possible explanations and the section engaged by each, (c) the immediate protective step and (d) the orders to seek if the transfer was forged.",
+   cover:["Search the Register and get a search certificate (ss.76 and 144). Copies of the transfer and any power of attorney","Compare signatures and consider a document examiner","Explanations: forgery (s.70 fraud exception, s.161), a false power of attorney (ss.149 to 151), a false possessory title (ss.85 to 87, s.178), a mortgagee's sale, a Registrar's error (s.153), a false transmission","Caveat forbidding dealings (s.139) and ask for a Registrar's caveat (s.15)","Orders: declaration of fraud, cancellation and a title in her name (s.153), injunction. Arem v Myrie and Sue v Peart","The assurance fund if an innocent buyer has registered"],
+   errors:["Delay that lets an innocent buyer register","Treating forgery alone as enough against an innocent owner (Arem v Myrie)"]}
+ ]
+};
+
+for (const k in QUIZ_X) QUIZ[k] = (QUIZ[k]||[]).concat(QUIZ_X[k]);
+for (const k in CARDS_X) CARDS[k] = (CARDS[k]||[]).concat(CARDS_X[k]);
+
+// Score reporting: paste the web app address from your Google Sheet here. Empty means nothing is sent.
+const SCORES_URL = "https://script.google.com/macros/s/AKfycbzN7CZphsLeWPxFrzgCEK6WuAy7D4LhkaeA1tWNbCFlXA5w55KUTnST7pFiuRBhEeNi6Q/exec";
+const CLASS_CODE = "GROUPN-2026";
+function student(){ try{ return JSON.parse(localStorage.getItem("hub-student")||"null"); }catch(e){ return null; } }
+function setStudent(v){ try{ localStorage.setItem("hub-student", JSON.stringify(v)); }catch(e){} }
+function weak(k){ try{ return JSON.parse(localStorage.getItem("hub-weak-"+k)||"[]"); }catch(e){ return []; } }
+function setWeak(k,v){ try{ localStorage.setItem("hub-weak-"+k, JSON.stringify(v)); }catch(e){} }
+function hist(k){ try{ return JSON.parse(localStorage.getItem("hub-hist-"+k)||"[]"); }catch(e){ return []; } }
+function addHist(k,r){ const h=hist(k); h.push(r); try{ localStorage.setItem("hub-hist-"+k, JSON.stringify(h.slice(-50))); }catch(e){} }
+function send(payload){
+  const st = student();
+  if(!SCORES_URL || !st || !st.consent) return;
+  try{ fetch(SCORES_URL, {method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain"}, body: JSON.stringify(Object.assign({code:CLASS_CODE, student:st.name}, payload))}); }catch(e){}
+}
+
+const $ = s => document.querySelector(s);
+const app = $("#app");
+let mode = "round", cur = null, view = "notes", round = 10, deck = [], i = 0, score = 0, misses = [], answered = false;
+
+function shuffle(a){ a = a.slice(); for(let j=a.length-1;j>0;j--){const r=Math.floor(Math.random()*(j+1)); [a[j],a[r]]=[a[r],a[j]];} return a; }
+function store(k, v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k, v);}catch(e){ return null; } }
+const isOpen = k => UNLOCKED.includes(k);
+
+function home(){
+  cur = null;
+  document.documentElement.style.setProperty("--c","#1F3A5F"); document.documentElement.style.setProperty("--l","#DCE6F2");
+  const st = student();
+  const banner = SCORES_URL ? (st ? `<div class="who ui">Signed in as <b>${st.name}</b>. ${st.consent ? "Your quiz scores are shared with your tutor." : "Your scores stay on this phone."} <button class="linkb" id="chg">Change</button></div>` : `<div class="who ui"><button class="btn" id="chg">Sign in to save your progress</button></div>`) : "";
+  app.innerHTML = banner + `<button class="rev ${REVISION_OPEN?"":"locked"}" id="rev" ${REVISION_OPEN?"":"aria-disabled=\"true\""}><span class="ico" aria-hidden="true">${REVISION_OPEN?"&#9733;":"&#128274;"}</span><span><span class="big2 ui">Master revision quiz and flashcards</span><br><span class="sub ui">${REVISION_OPEN?"Every examinable chapter in one bank":"Opens in revision season"}</span></span></button><div class="grid">${CHAPTERS.map(ch => {
+    const open = isOpen(ch.k);
+    const best = store("hub-best-"+ch.k);
+    return `<button class="ch ${open?"":"locked"}" style="--c:${ch.c};--l:${ch.l}" data-k="${ch.k}" ${open?"":"aria-disabled=\"true\""}>
+      ${open?"":`<span class="lock" aria-hidden="true">&#128274;</span>`}
+      <div class="num">Chapter ${ch.n}</div>
+      <div class="t">${ch.title}</div>
+      <div class="s">${open ? `<span class="open-tag">Open</span>${best ? ` &nbsp;Best ${best}%` : ""}${weak(ch.k).length ? ` &nbsp;${weak(ch.k).length} to review` : ""}` : "Opens after the seminar"}</div>
+    </button>`;}).join("")}</div>`;
+  if($("#chg")) $("#chg").onclick = signin;
+  app.querySelectorAll(".ch").forEach(b => b.onclick = () => { if(isOpen(b.dataset.k)) location.hash = b.dataset.k; });
+}
+
+
+function signin(){
+  const st = student() || {name:"", consent:false};
+  app.innerHTML = `<button class="back" id="back">&larr; All chapters</button>
+   <div class="card"><h2 style="margin-top:0">Save your progress</h2>
+   <label class="ui" for="nm">Your name as it appears on the class list</label>
+   <input id="nm" value="${st.name.replace(/"/g,"&quot;")}" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:16px;margin:6px 0 14px">
+   <label style="display:flex;gap:10px;align-items:flex-start;font-size:15px"><input type="checkbox" id="ok" ${st.consent?"checked":""} style="margin-top:4px">
+   <span>I agree to my name and quiz scores (chapter, score, date and the questions I got wrong) being sent to my tutor, Mr Stimpson, to track my progress. They're stored in a spreadsheet only he can see and used for nothing else. I can untick this at any time and my scores will then stay on this phone.</span></label>
+   <div class="row"><button class="btn" id="save">Save</button></div></div>`;
+  $("#back").onclick = () => { location.hash = ""; home(); };
+  $("#save").onclick = () => {
+    const name = $("#nm").value.trim();
+    if(!name){ $("#nm").focus(); return; }
+    setStudent({name, consent: $("#ok").checked});
+    location.hash = ""; home();
+  };
+}
+
+function chapter(k){
+  const ch = CHAPTERS.find(c => c.k === k);
+  if(!ch || !isOpen(k)){ location.hash = ""; return home(); }
+  cur = ch;
+  document.documentElement.style.setProperty("--c", ch.c); document.documentElement.style.setProperty("--l", ch.l);
+  app.innerHTML = `<button class="back" id="back">&larr; All chapters</button>
+    <div class="chhead"><div class="num">Chapter ${ch.n}</div><h2>${ch.title}</h2></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" data-v="notes" role="tab">Key points</button>
+      <button class="tab" data-v="quiz" role="tab">Quiz</button>
+      <button class="tab" data-v="cards" role="tab">Flashcards</button>
+      <button class="tab" data-v="exam" role="tab">Exam practice</button>
+    </div>
+    <div id="rounds" class="rounds"></div>
+    <div id="stage"></div>`;
+  $("#back").onclick = () => { location.hash = ""; };
+  app.querySelectorAll(".tab").forEach(t => t.onclick = () => setView(t.dataset.v));
+  setView(view);
+}
+
+function setView(v){
+  view = v;
+  app.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.v === v));
+  $("#rounds").innerHTML = "";
+  if(v === "notes") return notes();
+  if(v === "quiz") return startQuiz();
+  if(v === "exam") return exam();
+  startCards();
+}
+
+function notes(){
+  $("#stage").innerHTML = NOTES[cur.k].map(([h,t]) => `<div class="note"><h3>${h}</h3><p>${t}</p></div>`).join("") +
+    `<div class="row"><button class="btn" id="toQuiz">Test yourself on this chapter</button></div>`;
+  $("#toQuiz").onclick = () => setView("quiz");
+}
+
+function startQuiz(){
+  const pool = QUIZ[cur.k];
+  deck = shuffle(pool); if(round) deck = deck.slice(0, round);
+  i = 0; score = 0; misses = [];
+  $("#rounds").innerHTML = `<span>Questions per round:</span>
+    <button class="chip" aria-pressed="${round===10}" id="r10">10</button>
+    <button class="chip" aria-pressed="${!round}" id="rAll">All ${pool.length}</button>
+    ${weak(cur.k).length ? `<button class="chip" id="rWeak">My weak questions (${weak(cur.k).length})</button>` : ""}`;
+  $("#r10").onclick = () => { round = 10; startQuiz(); };
+  $("#rAll").onclick = () => { round = 0; startQuiz(); };
+  if($("#rWeak")) $("#rWeak").onclick = () => { const w = weak(cur.k); deck = shuffle(QUIZ[cur.k].filter(x => w.includes(x.q))); i = 0; score = 0; misses = []; mode = "weak"; quiz(); };
+  mode = round ? "round" : "all";
+  quiz();
+}
+
+function bar(n){ return `<div class="bar"><i style="width:${n*100}%"></i></div>`; }
+
+function quiz(){
+  if(i >= deck.length) return result();
+  const x = deck[i], order = shuffle(x.o.map((t,n)=>({t,n})));
+  $("#stage").innerHTML = `<div class="card"><div class="meta ui">Question ${i+1} of ${deck.length}</div>${bar(i/deck.length)}
+    <div class="q">${x.q}</div>
+    <div class="opts">${order.map(o=>`<button class="opt" data-n="${o.n}">${o.t}</button>`).join("")}</div>
+    <div id="why"></div><div class="row"><button class="btn" id="next" disabled>Next</button></div></div>`;
+  answered = false;
+  document.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    if(answered) return; answered = true;
+    const ok = +b.dataset.n === x.a; if(ok) score++; else misses.push(x);
+    const w = weak(cur.k).filter(q => q !== x.q); if(!ok) w.push(x.q); setWeak(cur.k, w);
+    document.querySelectorAll(".opt").forEach(o => { o.disabled = true; if(+o.dataset.n === x.a) o.classList.add("right"); });
+    if(!ok) b.classList.add("wrong");
+    $("#why").innerHTML = `<div class="why"><b class="ui">${ok ? "That's right." : "Not quite."}</b> ${x.w}</div>`;
+    $("#next").disabled = false; $("#next").focus();
+  });
+  $("#next").onclick = () => { i++; quiz(); };
+}
+
+function result(){
+  const pct = Math.round(score/deck.length*100), key = "hub-best-"+cur.k, best = +(store(key)||0);
+  if(pct > best) store(key, String(pct));
+  addHist(cur.k, {d: new Date().toISOString().slice(0,10), s: score, t: deck.length});
+  send({chapter: "Chapter "+cur.n, score, total: deck.length, pct, mode, missed: misses.map(m => m.q)});
+  const h = hist(cur.k).slice(-5);
+  $("#stage").innerHTML = `<div class="card score"><div class="ui" style="color:var(--muted)">Chapter ${cur.n}: ${cur.title}</div>
+    <div class="big">${score} / ${deck.length}</div>${h.length > 1 ? `<div class="ui" style="font-size:13px;color:var(--muted)">Your last ${h.length} rounds: ${h.map(r => Math.round(r.s/r.t*100)+"%").join(" &rarr; ")}</div>` : ""}
+    <div>${pct >= 80 ? "Strong. Now try a worksheet problem under time." : pct >= 50 ? "Getting there. Go back over the ones you missed." : "Read the key points again, then try another round."}</div>
+    <div class="row"><button class="btn" id="again">Another round</button>${misses.length ? `<button class="btn ghost" id="missed">Only the ones I missed</button>` : ""}</div>
+    <div class="row"><button class="btn ghost" id="toNotes">Back to key points</button></div></div>`;
+  $("#again").onclick = startQuiz;
+  $("#toNotes").onclick = () => setView("notes");
+  if(misses.length) $("#missed").onclick = () => { deck = shuffle(misses); i = 0; score = 0; misses = []; quiz(); };
+}
+
+
+function exam(){
+  const items = PRACTICE[cur.k] || [];
+  $("#stage").innerHTML = `<p class="ui" style="margin:0 0 12px;color:var(--muted);font-size:14px">Read the facts and the task. Jot your plan, then reveal what the answer must cover. Write it out in full under time when you can: about 70 minutes a question.</p>` +
+   items.map((x,n) => `<div class="ex">
+    <div class="src ui">${x.src}</div><div class="also ui">${x.also}</div>
+    <div class="lab ui">The facts</div><div>${x.facts}</div>
+    <div class="lab ui">The task</div><div class="task">${x.task}</div>
+    <div class="lab ui">Your plan</div><textarea aria-label="Your plan" placeholder="Issues, law, documents, advice..."></textarea>
+    <div class="row"><button class="btn" data-n="${n}">Show what the answer must cover</button></div>
+    <div id="reveal${n}" hidden>
+      <div class="lab ui">What the answer must cover</div><ul>${x.cover.map(c=>`<li>${c}</li>`).join("")}</ul>
+      <div class="lab ui">Common errors</div><ul class="errs">${x.errors.map(c=>`<li>${c}</li>`).join("")}</ul>
+      ${x.note ? `<div class="noteline">${x.note}</div>` : ""}
+    </div></div>`).join("");
+  $("#stage").querySelectorAll("button[data-n]").forEach(b => b.onclick = () => {
+    const r = $("#reveal"+b.dataset.n); r.hidden = !r.hidden;
+    b.textContent = r.hidden ? "Show what the answer must cover" : "Hide";
+  });
+}
+
+function startCards(){ deck = shuffle(CARDS[cur.k]); i = 0; card(); }
+
+function card(){
+  const x = deck[i];
+  $("#stage").innerHTML = `<div class="meta ui">Card ${i+1} of ${deck.length}</div>${bar((i+1)/deck.length)}
+    <div class="flip" id="flip" tabindex="0" role="button" aria-label="Flip card"><div class="inner">
+      <div class="face"><div class="q" style="margin:0">${x.f}</div><div class="hint ui">Tap to see the answer</div></div>
+      <div class="face back"><div style="font-size:18px;line-height:1.55">${x.b}</div><div class="hint ui">Tap to flip back</div></div>
+    </div></div>
+    <div class="row"><button class="btn ghost" id="prev" ${i===0?"disabled":""}>Back</button><button class="btn" id="nxt">${i===deck.length-1?"Shuffle and start over":"Next"}</button></div>`;
+  const f = $("#flip"), t = () => f.classList.toggle("on");
+  f.onclick = t; f.onkeydown = e => { if(e.key===" "||e.key==="Enter"){ e.preventDefault(); t(); } };
+  $("#prev").onclick = () => { if(i>0){ i--; card(); } };
+  $("#nxt").onclick = () => { if(i < deck.length-1){ i++; card(); } else startCards(); };
+}
+
+function route(){ const k = location.hash.replace("#",""); if(k) { view = "notes"; chapter(k); } else home(); window.scrollTo(0,0); }
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
