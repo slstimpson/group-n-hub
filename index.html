@@ -59,6 +59,8 @@
   .ex .errs li{color:#7A2A2A}
   .ex .noteline{font-style:italic;font-size:14.5px;color:#555;margin-top:8px}
   .ex textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:10px;padding:10px;font-family:Georgia,serif;font-size:15px;margin-top:4px}
+  .pq{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+  .why ul{margin:4px 0 0;padding-left:20px}
   .note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:5px solid var(--c)}
   .note h3{margin:0 0 4px;font-size:17px;color:var(--c)}
   .note p{margin:0;font-size:16px}
@@ -349,6 +351,92 @@ const PRACTICE = {
  ]
 };
 
+// Class quizzes already sat and marked. Only add a quiz here after the marks have gone back.
+const PAST = {
+ch1: [
+ { title: "Opening quiz", sub: "Seminar 1, 1 October 2026. 13 marks. Closed book, 15 minutes.",
+   intro: "This was your baseline. Try it again cold, then check your answers. If you score 9 or more, your recall is sound. Below 6, reread a Real Property text on estates (Cheshire chapters 4 and 5, or Owusu chapter 4).",
+   items: [
+   { q: "Which estate comes closest to outright ownership of land?<br>(a) Life estate (b) Fee simple absolute in possession (c) Fee tail (d) Term of years", m: 1,
+     a: "<b>(b) Fee simple absolute in possession.</b> The largest estate known to the law, treated as equivalent to permanent ownership." },
+   { q: "A grant \"to Andre and the heirs of his body\" creates:<br>(a) A fee simple (b) A life estate (c) A fee tail (d) A lease", m: 1,
+     a: "<b>(c) Fee tail.</b> \"Heirs of his body\" confines descent to lineal descendants." },
+   { q: "Beth holds a life estate in Blackacre. Her will leaves \"all my land\" to Carl. When Beth dies, what does Carl take in Blackacre?<br>(a) Beth's life estate (b) The fee simple (c) Nothing (d) A lease for his own life", m: 1,
+     a: "<b>(c) Nothing.</b> A life estate ends on the holder's death. There is nothing left for the will to pass." },
+   { q: "Land is granted \"to the Parish Church for so long as the premises are used as a school\". The Church holds:<br>(a) A conditional fee simple (b) A determinable fee simple (c) A life estate (d) A fee tail", m: 1,
+     a: "<b>(b) Determinable fee simple.</b> \"For so long as\" marks the limit of the estate. It ends automatically when the use stops." },
+   { q: "Sam owns the fee simple. He grants the land \"to Ann for life\" and says nothing more. Who is entitled to the land when Ann dies? What is that person's interest called while Ann is alive?", m: 2,
+     a: "<b>Sam, or Sam's estate if he has died. A fee simple in reversion.</b> Sam gave away less than he had. What he kept is the reversion." },
+   { q: "Sam grants land \"to Ann for life, remainder to Peter in fee simple\". Peter dies before Ann. Peter's will leaves everything to Quincy. Who takes the land when Ann dies? Give one reason.", m: 2,
+     a: "<b>Quincy.</b> Peter's remainder was vested when it was granted. It was his to leave by will even though he never had possession." },
+   { q: "True or false: in Jamaica a life tenant can sell only her own life interest. She can never sell the fee simple.", m: 1,
+     a: "<b>False.</b> Settled Land Act s.3: the tenant for life may sell the settled land, meaning the fee simple." },
+   { q: "A life tenant sells settled land for $10,000,000. Who must receive the purchase money?<br>(a) The life tenant (b) The remainderman (c) The trustees of the settlement or the court (d) The Registrar", m: 1,
+     a: "<b>(c) The trustees of the settlement or the court.</b> Sections 25(1) and 47. Never the life tenant." },
+   { q: "Trevor holds land on trust for Paul. Trevor dishonestly sells the land to Sonia. Name two things Sonia must show in order to take the land free of Paul's interest.", m: 2,
+     a: "<b>Any two of:</b> she bought the legal estate; for value; in good faith; without notice." },
+   { q: "Tom, aged 15, inherits a house outright under his grandmother's will. True or false: because Tom is the absolute owner, the Settled Land Act has nothing to do with the house.", m: 1,
+     a: "<b>False.</b> Section 65: land to which an infant is entitled in possession is deemed settled land and the infant is deemed tenant for life. Section 66: the powers are exercised for him by the trustees or as the court orders." }
+ ]},
+ { title: "Progress quiz", sub: "Homework after Seminar 1. 40 marks. Open statute, closed notes, 60 minutes.",
+   intro: "Marks go for the rule, the authority and the application to the facts. Before you look at an answer, check yours against three questions. What estate or interest does each person hold? Is it in possession, remainder or reversion? Which section or case supports it?",
+   items: [
+   { q: "Harold owns Whiteacre in fee simple. Write the words you would use in the grant to give (a) a life estate to Doreen, (b) a fee tail to Fred, (c) a fee simple to Maureen.", m: 3,
+     a: "(a) \"To Doreen for life\" or \"for the term of her natural life\". (b) \"To Fred and the heirs of his body\". (c) \"To Maureen in fee simple\". \"To Maureen and her heirs\" is accepted as the older form." },
+   { q: "Distinguish a determinable fee simple from a conditional fee simple. Give one example of the wording that creates each. Say what happens to the land when the event occurs.", m: 3,
+     a: "<b>Determinable:</b> words of duration such as \"until\", \"during\" or \"for so long as\". The estate ends automatically on the event and the land reverts to the grantor.<br><b>Conditional:</b> words of condition such as \"provided that\", \"on condition that\" or \"but if\". The estate continues until the grantor exercises his right of entry.<br>One mark for each definition with wording, one for the consequences." },
+   { q: "What is a \"settlement\" under section 2(2) of the Settled Land Act? Explain why land held by two joint tenants is not, for that reason alone, settled land.", m: 2,
+     a: "A deed, will or other instrument under which land stands limited to or in trust for persons by way of succession. Joint tenants hold the same interest at the same time. Their interests are concurrent, not successive." },
+   { q: "Who are the \"trustees of the settlement\" under section 2(9)? What words should the drafter use when appointing them? What can be done if a settlement has none?", m: 2,
+     a: "Trustees with a power of sale of the settled land, or the persons declared by the settlement to be trustees for the purposes of the Act. Use the words \"for the purposes of the Settled Land Act\". If there are none, the court appoints on the application of the tenant for life or any person interested: s.44(1). Credit for a reference to s.45." },
+   { q: "A life tenant intends to sell. State the notice she must give under section 53: to whom, how, how long before and before what event. Can the trustees refuse to allow the sale?", m: 2,
+     a: "Written notice by registered post to each trustee at his usual or last known address and to the trustees' attorney if known. Posted not less than one month before the sale or the contract for it. At least two trustees must be in office. The trustees may waive notice in writing or accept shorter notice. <b>They cannot refuse the sale.</b> They may apply to the court under s.52." },
+   { q: "State the longest lease a life tenant may grant of (a) farm land for farming, (b) land for building, (c) land for mining. Who is entitled to the rent?", m: 2,
+     a: "(a) 21 years. (b) 99 years. (c) 60 years. Rent is income and belongs to the tenant for life. A fine is capital. Under a mining lease part of the rent is set aside as capital (s.15)." },
+   { q: "Explain \"overreaching\" in no more than three sentences. Use a sale by a life tenant as your example.", m: 2,
+     a: "On a sale by the tenant for life the purchaser takes the fee simple free of the interests under the settlement. Those interests are detached from the land and attach to the purchase money held by the trustees. The tenant for life takes the income and the remainderman takes the capital when the life interest ends." },
+   { q: "The proprietor entry on a registered title reads: \"MARY GRANT of 4 Hill Road, Mandeville, Teacher, is now the proprietor of an estate in fee simple for the term of her natural life and thereafter to PETER GRANT, Engineer and JOAN GRANT, Nurse, both of the same address, as Tenants in Common in equal shares.\"<br>(a) State what estate or interest each of Mary, Peter and Joan holds.<br>(b) Peter dies without a will while Mary is alive. What happens to his interest?<br>(c) Mary wants to mortgage the property to a bank to raise money for a new car. Advise her.", m: 6,
+     a: "<b>(a)</b> Mary: life estate in possession. She is tenant for life of settled land. Peter and Joan: fee simple in remainder as tenants in common in equal shares. (2)<br><b>(b)</b> Peter's half share in remainder is vested. There is no survivorship between tenants in common. It passes to his next of kin under the Intestates' Estates and Property Charges Act. His personal representative is entered on the title by transmission and then transfers to those entitled. Mary's life interest is unaffected. (2)<br><b>(c)</b> She cannot mortgage the fee simple for that purpose. The statutory power to mortgage is limited to raising equality money on an exchange or partition (s.20) and discharging an incumbrance on the settled land (s.21). She may charge her own life interest, but that is poor security because it ends on her death. (2)" },
+   { q: "Clive died last year. His will, which has been admitted to probate, provides: \"I give my house at 5 Palm Way to my sister Dawn for her life provided she continues to live there and after her death to my nephew Earl.\" The will appoints two executors. It says nothing about the Settled Land Act. Dawn has moved to Canada. A buyer has offered her $18,000,000 for the house. Dawn has a valuation, done three years ago, of $17,000,000. Earl is 30 and objects to any sale. Advise Dawn.", m: 8,
+     a: "<ul><li>The will creates a settlement. The house is settled land. Dawn is tenant for life even though her estate may end early: ss.2(2), 2(6), 64(1)(f). (1)</li><li>She has power to sell the fee simple: s.3. (1)</li><li>The residence condition is void so far as it would prevent or discourage a sale: s.57. Selling does not cause a forfeiture: s.58. Re Paget's Settled Estates; Re Acklom [1929] 1 Ch 195. Credit for asking whether her interest ended when she left, before any sale: the stronger view is that the condition can't be used to defeat the statutory power, but you need instructions on when and why she left. (2)</li><li>No trustees for the purposes of the Act. Executors aren't trustees of the settlement unless the will gives them a power of sale or declares them such: s.2(9). Apply to the court by fixed date claim form with affidavit under s.44(1) for two trustees. (1)</li><li>One month's notice by registered post to the trustees before contract: s.53. Earl's consent isn't required. His objection doesn't stop a proper sale. (1)</li><li>Best price: s.6. A three-year-old valuation isn't enough. Get a current market valuation and advertise. An offer above an old valuation is not proof of best price. Dawn acts as trustee for Earl: s.59. (1)</li><li>Purchase money to the two trustees or into court: ss.25, 47. Dawn receives income for life. Earl takes the fund on her death. (1)</li></ul>" },
+   { q: "Lloyd agrees in writing to grant Tessa a five-year lease of a shop at a rent payable quarterly in advance. No lease is ever executed. Tessa goes into possession and pays rent. Title to the shop is unregistered.<br>(a) Lloyd demands a quarter's rent in advance. Tessa says that without a lease she pays in arrears. Who is right? Cite authority.<br>(b) Lloyd sells the shop to Priya. Explain why Tessa's position is weaker than it would have been under a properly executed lease. Say what Priya would have to show to take free of Tessa's interest and whether she is likely to succeed.", m: 5,
+     a: "<b>(a) Lloyd.</b> Walsh v Lonsdale (1882) 21 Ch D 9: a tenant in possession under an agreement for a lease holds in equity on the terms of the agreement, provided specific performance would be granted. The agreement is in writing, so the Statute of Frauds is satisfied. (2)<br><b>(b)</b> Tessa has an equitable lease only. An equitable interest binds everyone except a bona fide purchaser of the legal estate for value without notice. Priya must show she bought the legal estate, gave value, acted in good faith and had no notice. She's unlikely to succeed. Tessa is in occupation and a prudent purchaser inspects and asks occupiers what rights they claim, so Priya has constructive notice. Tessa should still call for a formal lease and have it recorded. (3)" },
+   { q: "Drafting. Your client wants his will to give his house to his wife for her life or until she remarries, then to his two daughters equally. Draft (a) the clause appointing trustees so that no court application will be needed later, (b) the devise.", m: 5,
+     a: "Two marks for an appointment clause that uses the words \"for the purposes of the Settled Land Act\" and names two trustees. Two for a devise that states the life interest, the event that ends it and the remainder in fee simple. One for stating how the daughters hold.<br><br><i>\"I APPOINT [X] of [address] and [Y] of [address] to be the Executors and Trustees of this my Will and I DECLARE that they shall be the trustees of the settlement created by clause [ ] for the purposes of the Settled Land Act.\"</i><br><br><i>\"I GIVE AND DEVISE my house at [address], registered at Volume [ ] Folio [ ] of the Register Book of Titles, to my wife [W] during her life or until she remarries (whichever happens first) and after that to my daughters [A] and [B] in fee simple as tenants in common in equal shares.\"</i>" }
+ ]}
+],
+ch3: [
+ { title: "Diagnostic quiz", sub: "Start of Seminar 3, 29 October 2026. Ten minutes, not graded.",
+   intro: "Short answers of one or two sentences are enough. Try it again now the seminar is behind you. Question 2 is the one that matters most: if you still get it wrong, go back to the key points before anything else.",
+   items: [
+   { q: "Name the Act under which land is registered in Jamaica and the official who keeps the Register.",
+     a: "The Registration of Titles Act. The Registrar of Titles, at the National Land Agency." },
+   { q: "True or false: when the vendor and purchaser sign the instrument of transfer and the purchaser pays, the purchaser becomes the legal owner of registered land.",
+     a: "<b>False.</b> Title passes on registration (RTA ss.59, 63, 88). Until the transferee is entered, the transferor remains proprietor." },
+   { q: "What are the three principles of the Torrens system? One line each.",
+     a: "<b>Mirror:</b> the Register reflects accurately and completely the facts material to proprietorship.<br><b>Curtain:</b> the Register is the sole source; nobody need look behind it.<br><b>Insurance:</b> if the Register is wrong and someone suffers loss, the State compensates (assurance fund, RTA ss.158, 161 to 164)." },
+   { q: "What is the difference between a certificate of absolute title and a certificate of qualified title?",
+     a: "<b>Absolute (s.26):</b> the named person is proprietor subject to the encumbrances noted.<br><b>Qualified (s.27):</b> issued on first registration where the title is imperfect. Same estate, but subject to the qualifications endorsed. It can be upgraded to absolute on application." },
+   { q: "A registered proprietor's title is said to be \"indefeasible\". Name two exceptions.",
+     a: "Any two of: fraud; adverse possession for twelve years or more; the overriding interests in s.70 (public rights of way, easements by user, unpaid taxes and rates, short tenancies); interests endorsed on the title; claims in personam against the proprietor." },
+   { q: "What is the difference between a search of the Register and a search certificate?",
+     a: "A <b>search</b> (s.76) is an inspection of the Register Book and registered instruments by anyone who pays the fee. A <b>search certificate</b> (s.144) is the Registrar's certificate whether the proprietor is free to deal with the land, taking account of caveats and instruments lodged but not yet registered, as well as orders and injunctions known to the Registrar but not yet on the certificate." },
+   { q: "Name three things that bind registered land even though they do not appear on the certificate of title.",
+     a: "Any three from RTA s.70: public rights of way; easements acquired by user; unpaid property taxes and water rates; a tenant in possession under a lease of three years or less." },
+   { q: "Who may apply to bring unregistered land under the Act? Name two categories.",
+     a: "Any two from RTA s.28: a person claiming to own the fee simple at law or in equity; the Commissioner of Lands for Crown land; a guardian of an infant or committee of a person of unsound mind; a tenant for life exercising a power of sale; a mortgagor with the mortgagee's consent; a mortgagee exercising a power of sale; a vendor of common law title at the purchaser's request (s.49)." },
+   { q: "An applicant for first registration has no deeds. For how many years must he show possession, and why does the answer vary?",
+     a: "Twelve years extinguishes the owner's right (Limitation of Actions Act s.3), but the applicant must prove the former owner's title and that it has been extinguished. Where the former owner can't be identified the Referee has required thirty years, because ss.17 and 19 extend time for an owner under a disability up to thirty years. Hall and Pitter v Registrar of Titles [2016] JMSC Civ 203 says twelve years suffices absent evidence of disability." },
+   { q: "Sunny lives on Lot 5 with the permission of his uncle, one of three registered joint tenants. After twenty years he applies for title by adverse possession. Will he succeed? One sentence.",
+     a: "<b>No.</b> He entered with permission, so his possession was never adverse; and a licence from one joint tenant is treated as a licence from all (Sarju v Sarju [2022] JMSC Civ 126)." },
+   { q: "A registered mortgage of land in Jamaica is (a) a conveyance of the fee simple to the lender subject to a proviso for redemption or (b) a charge on the land. Choose one.",
+     a: "<b>(b).</b> A registered mortgage takes effect as a charge (RTA s.103), which is why it is discharged by endorsement and not by reconveyance. A common law mortgage of unregistered land in Jamaica is (a)." },
+   { q: "Before whom must an instrument be signed in Jamaica for the Registrar to accept it? Name two of the prescribed functionaries.",
+     a: "Any two of: a Justice of the Peace, a Judge of the Supreme Court, the Registrar of Titles, a notary public, the Governor-General, an attorney-at-law (RTA s.152). Any other witness must appear before one of these to complete the probate clause." }
+ ]}
+]
+};
+
 for (const k in QUIZ_X) QUIZ[k] = (QUIZ[k]||[]).concat(QUIZ_X[k]);
 for (const k in CARDS_X) CARDS[k] = (CARDS[k]||[]).concat(CARDS_X[k]);
 
@@ -424,6 +512,7 @@ function chapter(k){
       <button class="tab" data-v="quiz" role="tab">Quiz</button>
       <button class="tab" data-v="cards" role="tab">Flashcards</button>
       <button class="tab" data-v="exam" role="tab">Exam practice</button>
+      ${typeof PAST !== "undefined" && PAST[k] ? `<button class="tab" data-v="past" role="tab">Class quizzes</button>` : ""}
     </div>
     <div id="rounds" class="rounds"></div>
     <div id="stage"></div>`;
@@ -439,6 +528,7 @@ function setView(v){
   if(v === "notes") return notes();
   if(v === "quiz") return startQuiz();
   if(v === "exam") return exam();
+  if(v === "past") return past();
   startCards();
 }
 
@@ -519,6 +609,20 @@ function exam(){
   $("#stage").querySelectorAll("button[data-n]").forEach(b => b.onclick = () => {
     const r = $("#reveal"+b.dataset.n); r.hidden = !r.hidden;
     b.textContent = r.hidden ? "Show what the answer must cover" : "Hide";
+  });
+}
+
+function past(){
+  const sets = (typeof PAST !== "undefined" && PAST[cur.k]) || [];
+  $("#stage").innerHTML = `<p class="ui" style="margin:0 0 12px;color:var(--muted);font-size:14px">The quizzes from the seminar, with the answers. Write your own answer first, then tap to check it.</p>` +
+   sets.map((s,si) => `<div class="ex"><div class="src ui">${s.title}</div><div class="also ui">${s.sub}</div>
+    <div class="noteline" style="font-style:normal;margin:6px 0 4px">${s.intro}</div>
+    ${s.items.map((x,n) => `<div class="pq"><div class="lab ui">Question ${n+1}${x.m ? ` <span style="font-weight:400">[${x.m} mark${x.m>1?"s":""}]</span>` : ""}</div><div>${x.q}</div>
+      <button class="chip pqb" data-id="pa${si}-${n}" style="margin-top:8px">Show answer</button>
+      <div class="why" id="pa${si}-${n}" hidden>${x.a}</div></div>`).join("")}
+    </div>`).join("");
+  $("#stage").querySelectorAll(".pqb").forEach(b => b.onclick = () => {
+    const r = $("#"+b.dataset.id); r.hidden = !r.hidden; b.textContent = r.hidden ? "Show answer" : "Hide answer";
   });
 }
 
