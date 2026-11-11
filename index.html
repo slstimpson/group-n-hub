@@ -46,6 +46,7 @@
   .tabs{display:flex;gap:8px;margin-bottom:14px}
   .tab{flex:1;border:2px solid var(--c);background:#fff;color:var(--c);border-radius:10px;padding:10px;font-weight:700;font-size:15px;cursor:pointer}
   .tab[aria-selected="true"]{background:var(--c);color:#fff}
+  .tab.locked{border-color:#C9C9C4;color:#9A9A95;background:#F3F3F0;cursor:default}
   .tabs{flex-wrap:wrap}
   .tab{min-width:calc(50% - 4px)}
   @media (min-width:560px){.tab{min-width:0}}
@@ -111,8 +112,18 @@
   <main id="app"></main>
 </div>
 <script>
-// Chapters open to students. To open the next chapter, add its key here and republish.
-const UNLOCKED = ["ch1", "ch3"];
+// What students can open, part by part: notes (key points), quiz, cards (flashcards),
+// exam (exam practice) and past (class work: marked class quizzes and worksheet answers).
+// A chapter appears on the home page once any part is open.
+// Rule: a part that isn't open must have no content in this file at all. A public page's
+// source can be read by anyone, so a locked part is only safe if it isn't here.
+const OPEN = {
+ ch1: ["notes", "quiz", "cards", "exam", "past"],
+ ch3: ["notes", "quiz", "cards", "exam", "past"]
+};
+const UNLOCKED = Object.keys(OPEN).filter(k => OPEN[k].length);
+const PARTS = [["notes","Key points"],["quiz","Quiz"],["cards","Flashcards"],["exam","Exam practice"],["past","Class work"]];
+const partOpen = (k, p) => (OPEN[k] || []).includes(p);
 // The master revision bank is added and this set to true in revision season.
 const REVISION_OPEN = false;
 
@@ -503,7 +514,7 @@ function home(){
       ${open?"":`<span class="lock" aria-hidden="true">&#128274;</span>`}
       <div class="num">Chapter ${ch.n}</div>
       <div class="t">${ch.title}</div>
-      <div class="s">${open ? `<span class="open-tag">Open</span>${best ? ` &nbsp;Best ${best}%` : ""}${weak(ch.k).length ? ` &nbsp;${weak(ch.k).length} to review` : ""}` : "Opens after the seminar"}</div>
+      <div class="s">${open ? `<span class="open-tag">${PARTS.every(([p]) => partOpen(ch.k,p)) ? "Open" : "Partly open"}</span>${best ? ` &nbsp;Best ${best}%` : ""}${weak(ch.k).length ? ` &nbsp;${weak(ch.k).length} to review` : ""}` : "Opens after the seminar"}</div>
     </button>`;}).join("")}</div>`;
   if($("#chg")) $("#chg").onclick = signin;
   app.querySelectorAll(".ch").forEach(b => b.onclick = () => { if(isOpen(b.dataset.k)) location.hash = b.dataset.k; });
@@ -536,20 +547,19 @@ function chapter(k){
   app.innerHTML = `<button class="back" id="back">&larr; All chapters</button>
     <div class="chhead"><div class="num">Chapter ${ch.n}</div><h2>${ch.title}</h2></div>
     <div class="tabs" role="tablist">
-      <button class="tab" data-v="notes" role="tab">Key points</button>
-      <button class="tab" data-v="quiz" role="tab">Quiz</button>
-      <button class="tab" data-v="cards" role="tab">Flashcards</button>
-      <button class="tab" data-v="exam" role="tab">Exam practice</button>
-      ${typeof PAST !== "undefined" && PAST[k] ? `<button class="tab" data-v="past" role="tab">Class work</button>` : ""}
+      ${PARTS.filter(([v]) => v !== "past" || !partOpen(k,"past") || (typeof PAST !== "undefined" && PAST[k])).map(([v,l]) => partOpen(k,v)
+        ? `<button class="tab" data-v="${v}" role="tab">${l}</button>`
+        : `<button class="tab locked" disabled aria-disabled="true" title="Opens later"><span aria-hidden="true">&#128274;</span> ${l}</button>`).join("")}
     </div>
     <div id="rounds" class="rounds"></div>
     <div id="stage"></div>`;
   $("#back").onclick = () => { location.hash = ""; };
-  app.querySelectorAll(".tab").forEach(t => t.onclick = () => setView(t.dataset.v));
+  app.querySelectorAll(".tab:not([disabled])").forEach(t => t.onclick = () => setView(t.dataset.v));
   setView(view);
 }
 
 function setView(v){
+  if(!partOpen(cur.k, v)) v = (PARTS.find(([p]) => partOpen(cur.k, p)) || ["notes"])[0];
   view = v;
   app.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.v === v));
   $("#rounds").innerHTML = "";
@@ -562,8 +572,8 @@ function setView(v){
 
 function notes(){
   $("#stage").innerHTML = NOTES[cur.k].map(([h,t]) => `<div class="note"><h3>${h}</h3><p>${t}</p></div>`).join("") +
-    `<div class="row"><button class="btn" id="toQuiz">Test yourself on this chapter</button></div>`;
-  $("#toQuiz").onclick = () => setView("quiz");
+    (partOpen(cur.k,"quiz") ? `<div class="row"><button class="btn" id="toQuiz">Test yourself on this chapter</button></div>` : "");
+  if($("#toQuiz")) $("#toQuiz").onclick = () => setView("quiz");
 }
 
 function startQuiz(){
