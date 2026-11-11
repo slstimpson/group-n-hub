@@ -512,7 +512,7 @@ for (const k in QUIZ_X) QUIZ[k] = (QUIZ[k]||[]).concat(QUIZ_X[k]);
 for (const k in CARDS_X) CARDS[k] = (CARDS[k]||[]).concat(CARDS_X[k]);
 
 // Score reporting: paste the web app address from your Google Sheet here. Empty means nothing is sent.
-const SCORES_URL = "https://script.google.com/macros/s/AKfycbzN7CZphsLeWPxFrzgCEK6WuAy7D4LhkaeA1tWNbCFlXA5w55KUTnST7pFiuRBhEeNi6Q/exec";
+const SCORES_URL = "https://script.google.com/macros/s/AKfycbzzpc3UJ0I1WCQUiyb9BgNWCXl5IEYDjKXXi6jYyQKDv_RLCMcp13QfWJpgUcqNNICZ/exec";
 const CLASS_CODE = "GROUPN-2026";
 function student(){ try{ return JSON.parse(localStorage.getItem("hub-student")||"null"); }catch(e){ return null; } }
 function setStudent(v){ try{ localStorage.setItem("hub-student", JSON.stringify(v)); }catch(e){} }
